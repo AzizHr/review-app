@@ -1,11 +1,12 @@
 package com.example.reviewapp.controller;
 
+import com.example.reviewapp.dto.ReviewRequest;
 import com.example.reviewapp.service.ReviewService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/reviews")
@@ -38,4 +39,15 @@ public class ReviewController {
         return "reviews";
     }
 
+
+    @PostMapping("/add")
+    public String save(@Valid @ModelAttribute ReviewRequest reviewRequest, BindingResult result) throws Exception {
+        if(result.hasErrors()){
+            System.out.println(result.getFieldError("message"));
+            return "add";
+        }else{
+            reviewService.save(reviewRequest);
+            return "reviews";
+        }
+    }
 }
