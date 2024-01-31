@@ -4,6 +4,7 @@ import com.example.reviewapp.dto.ReviewRequest;
 import com.example.reviewapp.model.Review;
 import com.example.reviewapp.repository.ReviewRepository;
 import com.example.reviewapp.service.ReviewService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
 
+    @Autowired
     public ReviewServiceImpl(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }

@@ -11,9 +11,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
+    @GeneratedValue
     private long id;
     private String firstname;
     private String lastname;
