@@ -1,5 +1,6 @@
 package com.example.reviewapp;
 
+import com.example.reviewapp.inums.Role;
 import com.example.reviewapp.model.User;
 import com.example.reviewapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class ReviewAppApplication {
         user.setLastname("Harkati");
         user.setEmail("aziz@gmail.com");
         user.setPassword("12345");
-        user.setRole("USER");
+        user.setRole(Role.USER);
 
         userRepository.save(user);
 

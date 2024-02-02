@@ -1,5 +1,6 @@
 package com.example.reviewapp.model;
 
+import com.example.reviewapp.inums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,9 +22,12 @@ public class User {
     private String lastname;
     private String email;
     private String password;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reaction> reactions;
 
 
 }

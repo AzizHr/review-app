@@ -1,8 +1,6 @@
 package com.example.reviewapp.dto;
 
-import com.example.reviewapp.inums.Reaction;
-import com.example.reviewapp.model.User;
-import jakarta.persistence.ManyToOne;
+import com.example.reviewapp.inums.ReactionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +17,7 @@ public class ReviewRequest {
     private LocalDate date;
     private String title;
     private String message;
-    private Reaction reaction;
+    private ReactionType reactionType;
     private long userId;
 
 }
