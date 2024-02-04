@@ -6,6 +6,7 @@ import com.example.reviewapp.model.Review;
 import com.example.reviewapp.repository.ReviewRepository;
 import com.example.reviewapp.repository.UserRepository;
 import com.example.reviewapp.service.ReviewService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,18 +15,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-
-    @Autowired
-    public ReviewServiceImpl(ReviewRepository reviewRepository, UserRepository userRepository, ModelMapper modelMapper) {
-        this.reviewRepository = reviewRepository;
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public Review save(ReviewRequest reviewRequest) throws Exception {

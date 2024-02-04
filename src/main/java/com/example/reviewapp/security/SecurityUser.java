@@ -1,35 +1,31 @@
-package com.example.reviewapp.model;
+package com.example.reviewapp.security;
 
-import com.example.reviewapp.inums.Role;
+import com.example.reviewapp.model.User;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-@Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class CustomUserDetails implements UserDetails {
+public class SecurityUser implements UserDetails {
 
-    private long id;
-    private String firstname;
-    private String lastname;
-    private String email;
-    private String password;
-    private Role role;
+    private final User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(role.name()));
+        return Collections.singleton(new SimpleGrantedAuthority(user.getRole().name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return email;
+        return user.getEmail();
     }
 
     @Override

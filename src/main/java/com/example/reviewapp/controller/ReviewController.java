@@ -3,6 +3,7 @@ package com.example.reviewapp.controller;
 import com.example.reviewapp.dto.ReviewRequest;
 import com.example.reviewapp.service.ReviewService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -10,14 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/reviews")
+@AllArgsConstructor
 public class ReviewController {
 
     private final ReviewService reviewService;
-
-    @Autowired
-    public ReviewController(ReviewService reviewService) {
-        this.reviewService = reviewService;
-    }
 
     @GetMapping("/add")
     public String add() {
