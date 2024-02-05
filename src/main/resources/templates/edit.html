@@ -7,22 +7,67 @@
 </head>
 <body class="bg-gray-200">
 <div th:replace="navbar"></div>
-<div class="container mx-auto py-8">
-    <h2 class="text-2xl font-bold mb-4">Update Review</h2>
-    <form class="max-w-md bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="#" th:action="@{reviews/edit/{id}(id=${review.id})}" th:object="${review}" method="post">
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Title:</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" th:field="*{title}">
+
+<div class="flex justify-center items-center w-screen h-screen bg-white">
+    <!-- COMPONENT CODE -->
+    <div class="container mx-auto my-4 px-4 lg:px-20">
+
+        <form th:action="@{reviews/edit/{id}(id=${review.id})}" th:object="${review}" method="post" class="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
+            <div class="flex">
+                <h1 class="font-bold uppercase text-5xl">add review</h1>
+            </div>
+            <div class="w-full grid grid-cols-1 gap-5  mt-5">
+                <input id="title" th:field="*{title}" class="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+                       type="text" placeholder="Title" />
+
+            </div>
+            <div class="my-4">
+                <textarea id="message"  th:field="*{message}" placeholder="Message" class="w-full h-32 bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"></textarea>
+            </div>
+            <div class="my-2 w-1/2 lg:w-1/4">
+                <button type="submit" class="uppercase text-sm font-bold tracking-wide bg-blue-900 text-gray-100 p-3 rounded-lg w-full
+                      focus:outline-none focus:shadow-outline">
+                    Update
+                </button>
+            </div>
+        </form>
+        <a class="text-blue-500" href="/reviews">Back to Reviews</a>
+
+        <div
+                class="w-full lg:-mt-96 lg:w-2/6 px-8 py-12 ml-auto bg-blue-900 rounded-2xl">
+            <div class="flex flex-col text-white">
+                <h1 class="font-bold uppercase text-4xl my-4">Drop in our office</h1>
+                <p class="text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                    tincidunt arcu diam,
+                    eu feugiat felis fermentum id. Curabitur vitae nibh viverra, auctor turpis sed, scelerisque ex.
+                </p>
+
+
+
+
+
+                <div class="flex my-4 w-2/3 lg:w-1/2">
+                    <a href="https://www.facebook.com/ENLIGHTENEERING/" target="_blank" rel="noreferrer" class="rounded-full bg-white h-8 w-8 inline-block mx-1 text-center pt-1">
+                        <i class="fab fa-facebook-f text-blue-900" />
+                    </a>
+                    <a href="https://www.linkedin.com/company/enlighteneering-inc-" target="_blank" rel="noreferrer" class="rounded-full bg-white h-8 w-8 inline-block mx-1 text-center pt-1">
+                        <i class="fab fa-linkedin-in text-blue-900" />
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="message">Message:</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message" type="text" th:field="*{message}">
-        </div>
-        <div class="flex items-center justify-between">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Update</button>
-        </div>
-    </form>
-    <a class="text-blue-500" href="/reviews">Back to Reviews</a>
+    </div>
+    <!-- COMPONENT CODE -->
 </div>
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>

@@ -30,7 +30,7 @@ public class ReviewController {
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('USER')")
     public String add(@Valid @ModelAttribute ReviewRequest reviewRequest, BindingResult result, Model model) throws Exception {
-        reviewRequest.setUserId(3);
+        reviewRequest.setUserId(407);
         if(result.hasErrors()){
             System.out.println(result.getFieldError("message"));
             return "add";
