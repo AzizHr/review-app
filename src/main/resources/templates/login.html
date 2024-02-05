@@ -7,6 +7,7 @@
 <body>
 <!-- component -->
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
 <div
         class="bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-purple-800 bottom-0 leading-5 h-full w-full overflow-hidden">
 
@@ -30,7 +31,7 @@
             </div>
             <form th:action="@{/login}" method="post" class="space-y-6">
                 <div class="">
-                    <input  type="text" id="username" name="username" autofocus="autofocus" class=" w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"  placeholder="Username">
+                    <input  type="email" id="username" name="username" autofocus="autofocus" class=" w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"  placeholder="Username">
                 </div>
 
 

@@ -21,6 +21,7 @@ public class Review {
     private LocalDate date;
     private String title;
     private String message;
+    private boolean isReported;
     @ManyToOne
     private User user;
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)

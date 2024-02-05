@@ -14,10 +14,8 @@ import java.util.UUID;
 public class ReviewRequest {
 
     private UUID id;
-    private LocalDate date;
     private String title;
     private String message;
-    private ReactionType reactionType;
     private long userId;
 
 }

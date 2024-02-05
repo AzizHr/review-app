@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +26,8 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Review save(ReviewRequest reviewRequest) throws Exception {
         Review review = modelMapper.map(reviewRequest, Review.class);
+        review.setDate(LocalDate.now());
+        review.setReported(false);
         review.setUser(userRepository.findById(reviewRequest.getUserId())
                 .orElseThrow(() -> new Exception("No user found")));
         return reviewRepository.save(review);
@@ -55,9 +58,24 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public List<Review> findAllReportedReviews() {
+        return reviewRepository.findAllReportedReviews();
+    }
+
+    @Override
     public Review findById(UUID id) throws ReviewNotFoundException {
         if(reviewRepository.findById(id).isPresent()) {
             return reviewRepository.findById(id).get();
+        }
+        throw new ReviewNotFoundException("No review was found");
+    }
+
+    @Override
+    public Review report(UUID id) throws ReviewNotFoundException {
+        if(reviewRepository.findById(id).isPresent()) {
+            Review review = reviewRepository.findById(id).get();
+            review.setReported(true);
+            return reviewRepository.save(review);
         }
         throw new ReviewNotFoundException("No review was found");
     }
