@@ -24,7 +24,7 @@ public class Review {
     private boolean isReported;
     @ManyToOne
     private User user;
-    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<Reaction> reactions;
 
 }

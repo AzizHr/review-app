@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface ReviewService {
 
     Review save(ReviewRequest reviewRequest) throws Exception;
-    Review update(ReviewRequest reviewRequest) throws Exception;
+    Review update(Review review) throws Exception;
     void delete(UUID id) throws ReviewNotFoundException;
     List<Review> findAll();
     List<Review> findAllReportedReviews();

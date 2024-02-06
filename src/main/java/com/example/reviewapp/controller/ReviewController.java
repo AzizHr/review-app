@@ -58,9 +58,9 @@ public class ReviewController {
 
     @PostMapping("/edit/{id}")
     @PreAuthorize("hasAnyAuthority('USER', 'ADMINISTRATOR', 'MODERATOR')")
-    public String edit(@PathVariable UUID id, @ModelAttribute ReviewRequest reviewRequest, Model model) throws Exception {
-        reviewRequest.setId(id);
-        reviewService.update(reviewRequest);
+    public String edit(@PathVariable UUID id, @ModelAttribute Review review, Model model) throws Exception {
+        review.setId(id);
+        reviewService.update(review);
         model.addAttribute("success", "Review updated with success");
         return "redirect:/reviews";
     }

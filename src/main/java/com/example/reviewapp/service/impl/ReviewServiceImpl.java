@@ -34,11 +34,8 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review update(ReviewRequest reviewRequest) throws Exception {
-        if(reviewRepository.findById(reviewRequest.getId()).isPresent()) {
-            Review review = modelMapper.map(reviewRequest, Review.class);
-            review.setUser(userRepository.findById(reviewRequest.getUserId())
-                    .orElseThrow(() -> new Exception("No user found")));
+    public Review update(Review review) throws Exception {
+        if(reviewRepository.findById(review.getId()).isPresent()) {
             return reviewRepository.save(review);
         }
         throw new ReviewNotFoundException("No review was found");
