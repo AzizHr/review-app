@@ -1,6 +1,6 @@
 package com.example.reviewapp.inums;
 
-public enum Reaction {
+public enum ReactionType {
     LIKE,
     DISLIKE
 }

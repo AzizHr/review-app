@@ -1,7 +1,8 @@
 package com.example.reviewapp.service;
 
-import org.springframework.stereotype.Service;
+import com.example.reviewapp.dto.RegisterRequest;
+import com.example.reviewapp.model.User;
 
-@Service
 public interface UserService {
+    User register(RegisterRequest registerRequest);
 }
