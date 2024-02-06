@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:layout="">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Review App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <head>
+        <!-- Include Thymeleaf attributes and external libraries if needed -->
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var likeForm = document.getElementById('likeForm');
+                var likeButton = document.getElementById('likeButton');
+
+                // Check if the item is liked in localStorage
+                var isLiked = localStorage.getItem('liked');
+
+                if (isLiked === 'true') {
+                    likeButton.classList.add('liked');
+                }
+
+                likeForm.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    // Add logic here to handle the form submission if needed
+
+                    // Toggle a CSS class to change the color
+                    likeButton.classList.toggle('liked');
+
+                    // Update the liked state in localStorage
+                    var currentState = likeButton.classList.contains('liked');
+                    localStorage.setItem('liked', currentState.toString());
+                });
+
+            });
+
+            /*]]>*/
+        </script>
+
+        <style>
+            .liked {
+                color: red; /* You can adjust this to your desired color */
+            }
+        </style>
+    </head>
 </head>
 <body>
 
@@ -55,60 +96,17 @@
             <blockquote th:each="review: ${reviews}" class="flex h-full flex-col justify-between bg-white p-6 shadow-sm sm:p-8">
                 <div>
                     <div class="flex gap-0.5 text-green-500">
-                        <svg
-                                class="h-5 w-5"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                            />
-                        </svg>
 
-                        <svg
-                                class="h-5 w-5"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                            />
-                        </svg>
+                        <form id="likeForm"  th:action="@{/reviews/like/{id}(id=${review.id})}" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
-                        <svg
-                                class="h-5 w-5"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                            />
-                        </svg>
+                            <button type="submit"   id="likeButton">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                </svg>
+                            </button>
+                        </form>
 
-                        <svg
-                                class="h-5 w-5"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                            />
-                        </svg>
-
-                        <svg
-                                class="h-5 w-5"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                            />
-                        </svg>
                     </div>
 
                     <div class="mt-4">
@@ -139,5 +137,7 @@
         </div>
     </div>
 </section>
+
+
 </body>
 </html>

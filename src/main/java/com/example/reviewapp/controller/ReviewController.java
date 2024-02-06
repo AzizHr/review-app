@@ -1,5 +1,5 @@
 package com.example.reviewapp.controller;
-
+import com.example.reviewapp.dto.ReactionRequest;
 import com.example.reviewapp.dto.ReviewRequest;
 import com.example.reviewapp.exception.ReviewNotFoundException;
 import com.example.reviewapp.model.Review;
@@ -29,6 +29,29 @@ public class ReviewController {
         model.addAttribute("review", new ReviewRequest());
         return "add";
     }
+//    @PostMapping("/like/{id}")
+//    @PreAuthorize("hasAnyAuthority('USER', 'ADMINISTRATOR', 'MODERATOR')")
+//    public String likeItem(@PathVariable UUID id,@ModelAttribute ReactionRequest reactionRequest)  {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
+//        long userId = securityUser.getUserId();
+//        reactionRequest.setUserId(userId);
+//        reactionRequest.setReviewId(id);
+//        reviewService.like(reactionRequest);
+//        return "redirect:/reviews";
+//    }
+@PostMapping("/like/{id}")
+@PreAuthorize("hasAnyAuthority('USER', 'ADMINISTRATOR', 'MODERATOR')")
+public String likeItem(@PathVariable UUID id, @ModelAttribute ReactionRequest reactionRequest) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
+    long userId = securityUser.getUserId();
+    reactionRequest.setUserId(userId);
+    reactionRequest.setReviewId(id);
+    reviewService.like(reactionRequest);
+    return "redirect:/reviews";
+}
+
 
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('USER')")
@@ -80,6 +103,7 @@ public class ReviewController {
         model.addAttribute("success", "Review deleted with success");
         return "redirect:/reviews";
     }
+
 
 
     @GetMapping()

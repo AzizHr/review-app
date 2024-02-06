@@ -1,5 +1,4 @@
 package com.example.reviewapp.security;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,7 +28,8 @@ public class SecurityConfig {
 //    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 //        return config.getAuthenticationManager();
 //    }
-//
+
+
 //    @Bean
 //    public AuthenticationProvider authenticationProvider() {
 //        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -37,7 +37,6 @@ public class SecurityConfig {
 //        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
 //        return daoAuthenticationProvider;
 //    }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -14,7 +14,7 @@
 
         <form th:action="@{reviews/edit/{id}(id=${review.id})}" th:object="${review}" method="post" class="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
             <div class="flex">
-                <h1 class="font-bold uppercase text-5xl">add review</h1>
+                <h1 class="font-bold uppercase text-5xl">edit review</h1>
             </div>
             <div class="w-full grid grid-cols-1 gap-5  mt-5">
                 <input id="title" th:field="*{title}" class="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
