@@ -3,10 +3,13 @@ package com.example.reviewapp.controller;
 import com.example.reviewapp.dto.ReviewRequest;
 import com.example.reviewapp.exception.ReviewNotFoundException;
 import com.example.reviewapp.model.Review;
+import com.example.reviewapp.security.SecurityUser;
 import com.example.reviewapp.service.ReviewService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,7 +33,10 @@ public class ReviewController {
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('USER')")
     public String add(@Valid @ModelAttribute ReviewRequest reviewRequest, BindingResult result, Model model) throws Exception {
-        reviewRequest.setUserId(407);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
+        long userId = securityUser.getUserId();
+        reviewRequest.setUserId(userId);
         if(result.hasErrors()){
             System.out.println(result.getFieldError("message"));
             return "add";
