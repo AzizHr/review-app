@@ -24,6 +24,13 @@ public class SecurityConfig {
                 .build();
     }
 
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+
 //    @Bean
 //    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 //        return config.getAuthenticationManager();
@@ -37,11 +44,4 @@ public class SecurityConfig {
 //        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
 //        return daoAuthenticationProvider;
 //    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-
 }

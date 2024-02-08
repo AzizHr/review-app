@@ -29,17 +29,7 @@ public class ReviewController {
         model.addAttribute("review", new ReviewRequest());
         return "add";
     }
-//    @PostMapping("/like/{id}")
-//    @PreAuthorize("hasAnyAuthority('USER', 'ADMINISTRATOR', 'MODERATOR')")
-//    public String likeItem(@PathVariable UUID id,@ModelAttribute ReactionRequest reactionRequest)  {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
-//        long userId = securityUser.getUserId();
-//        reactionRequest.setUserId(userId);
-//        reactionRequest.setReviewId(id);
-//        reviewService.like(reactionRequest);
-//        return "redirect:/reviews";
-//    }
+
 @PostMapping("/like/{id}")
 @PreAuthorize("hasAnyAuthority('USER', 'ADMINISTRATOR', 'MODERATOR')")
 public String likeItem(@PathVariable UUID id, @ModelAttribute ReactionRequest reactionRequest) {
@@ -67,7 +57,7 @@ public String likeItem(@PathVariable UUID id, @ModelAttribute ReactionRequest re
             reviewService.save(reviewRequest);
             model.addAttribute("reviews", reviewService.findAll());
             model.addAttribute("success", "Review added with success");
-            return "reviews";
+            return "redirect:/reviews";
         }
     }
 
@@ -81,7 +71,7 @@ public String likeItem(@PathVariable UUID id, @ModelAttribute ReactionRequest re
 
     @PostMapping("/edit/{id}")
     @PreAuthorize("hasAnyAuthority('USER', 'ADMINISTRATOR', 'MODERATOR')")
-    public String edit(@PathVariable UUID id, @ModelAttribute Review review, Model model) throws Exception {
+    public String edit(@PathVariable UUID id, @ModelAttribute("review") Review review, Model model) throws Exception {
         review.setId(id);
         reviewService.update(review);
         model.addAttribute("success", "Review updated with success");
@@ -98,11 +88,16 @@ public String likeItem(@PathVariable UUID id, @ModelAttribute ReactionRequest re
 
     @GetMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('ADMINISTRATOR')")
-    public String deleteItem(@PathVariable UUID id, Model model) throws ReviewNotFoundException {
-        reviewService.delete(id);
-        model.addAttribute("success", "Review deleted with success");
+    public String deleteItem(@PathVariable UUID id, Model model) {
+        try {
+            reviewService.delete(id);
+            model.addAttribute("success", "Review deleted with success");
+        } catch (ReviewNotFoundException e) {
+            model.addAttribute("error", "Review not found");
+        }
         return "redirect:/reviews";
     }
+
 
 
 
