@@ -122,8 +122,8 @@
                     <footer class="text-sm font-medium text-gray-700" th:text="${review.user.firstname + ' ' + review.user.lastname}">
                     </footer>
                     <div class="flex gap-2">
-                        <form sec:authorize="hasAuthority('ADMINISTRATOR')" th:action="@{/reviews/delete/{id}(id=${review.id})}" method="post">
-                            <button type="submit"><i class="fa-solid fa-trash bg-red-500 rounded-sm p-2 text-gray-200"></i></button>
+                        <form sec:authorize="hasAuthority('ADMINISTRATOR')" action="#" th:action="@{/reviews/delete/{id}(id=${review.id})}" method="post">
+                            <button><i class="fa-solid fa-trash bg-red-500 rounded-sm p-2 text-gray-200"></i></button>
                         </form>
 
                         <a sec:authorize="hasAuthority('ADMINISTRATOR') or hasAuthority('USER')" th:href="@{/reviews/edit/{id}(id=${review.id})}">

@@ -90,7 +90,7 @@ public String likeItem(@PathVariable UUID id, @ModelAttribute ReactionRequest re
         return "redirect:/reviews";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     public String deleteItem(@PathVariable UUID id, Model model) {
         try {
