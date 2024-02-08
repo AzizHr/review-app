@@ -71,9 +71,13 @@ public String likeItem(@PathVariable UUID id, @ModelAttribute ReactionRequest re
 
     @PostMapping("/edit/{id}")
     @PreAuthorize("hasAnyAuthority('USER', 'ADMINISTRATOR', 'MODERATOR')")
-    public String edit(@PathVariable UUID id, @ModelAttribute("review") Review review, Model model) throws Exception {
-        review.setId(id);
-        reviewService.update(review);
+    public String edit(@PathVariable UUID id, @ModelAttribute ReviewRequest reviewRequest, @ModelAttribute("review") Review review, Model model) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
+        long userId = securityUser.getUserId();
+        reviewRequest.setUserId(userId);
+        reviewRequest.setId(id);
+        reviewService.update(reviewRequest);
         model.addAttribute("success", "Review updated with success");
         return "redirect:/reviews";
     }

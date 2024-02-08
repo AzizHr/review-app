@@ -12,7 +12,7 @@
     <!-- COMPONENT CODE -->
     <div class="container mx-auto my-4 px-4 lg:px-20">
 
-        <form th:action="@{reviews/edit/{id}(id=${review.id})}" th:object="${review}" method="post" class="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
+        <form th:action="@{/reviews/edit/{id}(id=${review.id})}" th:object="${review}" method="post" class="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
             <div class="flex">
                 <h1 class="font-bold uppercase text-5xl">edit review</h1>
             </div>
@@ -41,9 +41,6 @@
                     tincidunt arcu diam,
                     eu feugiat felis fermentum id. Curabitur vitae nibh viverra, auctor turpis sed, scelerisque ex.
                 </p>
-
-
-
 
 
                 <div class="flex my-4 w-2/3 lg:w-1/2">
